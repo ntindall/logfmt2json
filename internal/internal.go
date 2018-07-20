@@ -3,7 +3,7 @@ package internal
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
+	"io"
 
 	"github.com/kr/logfmt"
 )
@@ -18,19 +18,32 @@ func (h *handler) HandleLogfmt(k, val []byte) error {
 	return nil
 }
 
-// Convert reads logfmt messages from the scanner passed as a parameter and
-// prints json output to stdout.
-func Convert(s *bufio.Scanner) error {
+// Logfmt2JSON reads logfmt messages from the reader passed as a parameter and
+// writes json passed to the writer
+func Logfmt2JSON(reader io.Reader, w io.Writer) error {
+	s := bufio.NewScanner(reader)
+	writer := bufio.NewWriter(w)
+
+	// Parse standard in, using newlines to delineate each message
 	for s.Scan() {
 		h := handler{}
 		if err := logfmt.Unmarshal(s.Bytes(), &h); err != nil {
 			return err
 		}
+
 		bytes, err := json.Marshal(h)
 		if err != nil {
 			return err
 		}
-		fmt.Println(string(bytes))
+
+		if _, err := writer.WriteString(string(bytes)); err != nil {
+			// For now, we fail out hard
+			return err
+		}
+
+		if err := writer.Flush(); err != nil {
+			return err
+		}
 	}
 
 	return s.Err()

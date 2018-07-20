@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 
@@ -15,8 +14,7 @@ func Main() {
 		Use:   "logfmt2json",
 		Short: "reads logfmt log messages from stdin and prints json to stdout",
 		Run: func(cmd *cobra.Command, args []string) {
-			scanner := bufio.NewScanner(os.Stdin)
-			err := internal.Convert(scanner)
+			err := internal.Logfmt2JSON(os.Stdin, os.Stdout)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, err.Error())
 				os.Exit(1)
