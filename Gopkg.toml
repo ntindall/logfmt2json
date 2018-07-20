@@ -1,0 +1,15 @@
+required=[
+  "github.com/golang/lint/golint",
+]
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  version = "0.0.3"
+
+[prune]
+  go-tests = true
+  unused-packages = true
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/kr/logfmt"
