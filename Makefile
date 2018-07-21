@@ -26,9 +26,10 @@ bin/golint: vendor
 .PHONY: build
 build: bin/logfmt2json
 
+GO_BUILD_LDFLAGS=-s -w -X github.com/ntindall/logfmt2json/cmd.version=$(shell git tag --list | tail -n 1)
 bin/logfmt2json: $(GO_SRC_FILES)
 	@echo "$(MAGENTA)building $(@)...$(RESET)"
-	go build -o bin/logfmt2json ./logfmt2json.go
+	go build -ldflags "$(GO_BUILD_LDFLAGS)" -o bin/logfmt2json ./logfmt2json.go
 
 .PHONY: test
 test: go-test go-lint build

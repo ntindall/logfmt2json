@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version = "unknown"
+
 // Main is the entry point to the logfmt2json command line interface.
 func Main() {
 	rootCmd := &cobra.Command{
@@ -21,6 +23,8 @@ func Main() {
 			}
 		},
 	}
+
+	rootCmd.Version = version
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, err.Error())

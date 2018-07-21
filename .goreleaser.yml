@@ -5,6 +5,8 @@ before:
 builds:
 - env:
   - CGO_ENABLED=0
+  ldflags:
+    - -s -w -X github.com/ntindall/logfmt2json/cmd.version={{.Version}} -X github.com/ntindall/logfmt2json/cmd.commit={{.Commit}} -X github.com/ntindall/logfmt2json/cmd.date={{.Date}}
 archive:
   replacements:
     darwin: Darwin
