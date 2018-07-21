@@ -33,6 +33,9 @@ bin/logfmt2json: $(GO_SRC_FILES)
 .PHONY: test
 test: go-test go-lint build
 
+.PHONY: lint
+lint: go-lint
+
 .PHONY: go-test
 go-test:
 	@echo "$(MAGENTA)running go tests...$(RESET)"
