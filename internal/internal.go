@@ -41,6 +41,10 @@ func Logfmt2JSON(reader io.Reader, w io.Writer) error {
 			return err
 		}
 
+		if _, err := writer.WriteRune('\n'); err != nil {
+			return err
+		}
+
 		if err := writer.Flush(); err != nil {
 			return err
 		}

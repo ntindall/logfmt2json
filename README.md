@@ -1,7 +1,7 @@
 # logfmt2json
 [![GoDoc](https://godoc.org/github.com/ntindall/logfmt2json?status.svg)](https://godoc.org/github.com/ntindall/logfmt2json)
 
-reads logfmt log messages from stdin and prints json to stdout
+reads [logfmt](https://brandur.org/logfmt) log messages from `stdin` and prints json to `stdout`
 
 ## Installation
 ```sh
