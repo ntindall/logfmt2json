@@ -1,6 +1,7 @@
 project_name: logfmt2json
 before:
   hooks:
+  - rm -rf dist
   - make setup build test lint
 builds:
 - env:
